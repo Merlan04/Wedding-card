@@ -6,673 +6,147 @@
 <title>Свадьба Влада и Дианы</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --rose: #c8838a;
-    --rose-light: #e8b4b8;
-    --rose-pale: #f5dde0;
-    --cream: #fdf6f0;
-    --gold: #c9a96e;
-    --gold-light: #e8d5b0;
-    --sage: #8a9e8c;
-    --sage-light: #b8ccba;
-    --text-dark: #4a3540;
-    --text-mid: #7a6070;
-  }
+:root{--rose:#c8838a;--rose-light:#e8b4b8;--rose-pale:#f5dde0;--cream:#fdf6f0;--gold:#c9a96e;--gold-light:#e8d5b0;--sage:#8a9e8c;--text-dark:#4a3540;--text-mid:#7a6070}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;min-height:100%;font-family:'Cormorant Garamond',serif;overflow-x:hidden}
+body{background:linear-gradient(135deg,#fdf0f3 0%,#fdf6f0 40%,#f0f5f1 100%);display:flex;align-items:center;justify-content:center;position:relative;padding:16px}
 
-  * { margin:0; padding:0; box-sizing:border-box; }
+.petal{position:fixed;top:-60px;pointer-events:none;z-index:0;animation:petalFall linear infinite;opacity:0}
+@keyframes petalFall{0%{transform:translateY(0) rotate(0deg) translateX(0);opacity:0}5%{opacity:.8}90%{opacity:.6}100%{transform:translateY(110vh) rotate(720deg) translateX(50px);opacity:0}}
 
-  body {
-    font-family: 'Cormorant Garamond', serif;
-    background: linear-gradient(135deg, #fdf0f3 0%, #fdf6f0 40%, #f0f5f1 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden;
-    position: relative;
-  }
+#scene{position:relative;z-index:10;width:100%;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px 0}
 
-  /* ===== PETALS ===== */
-  .petal {
-    position: fixed;
-    top: -60px;
-    pointer-events: none;
-    z-index: 0;
-    animation: petalFall linear infinite;
-    font-size: 22px;
-    opacity: 0;
-  }
-  @keyframes petalFall {
-    0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
-    5%   { opacity: 0.85; }
-    90%  { opacity: 0.7; }
-    100% { transform: translateY(110vh) rotate(720deg) translateX(60px); opacity: 0; }
-  }
+#envelope-wrap{transition:transform 1.2s cubic-bezier(.4,0,.2,1),opacity 1s ease}
+#envelope-wrap.fly-up{transform:translateY(-140vh) rotate(-8deg) scale(.7)!important;opacity:0!important}
 
-  /* ===== ENVELOPE SCENE ===== */
-  #scene {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 100vh;
-    padding: 20px;
-  }
+.envelope{width:min(380px,90vw);position:relative;cursor:pointer;filter:drop-shadow(0 20px 50px rgba(200,131,138,.3));animation:floatEnv 4s ease-in-out infinite}
+@keyframes floatEnv{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-  /* Envelope */
-  #envelope-wrap {
-    transition: transform 1.2s cubic-bezier(0.4,0,0.2,1), opacity 1s ease;
-  }
-  #envelope-wrap.fly-up {
-    transform: translateY(-140vh) rotate(-8deg) scale(0.7) !important;
-    opacity: 0 !important;
-  }
+.env-body{background:linear-gradient(160deg,#fdf6f0 0%,#fce8ec 60%,#f5dde0 100%);border-radius:8px 8px 18px 18px;padding:clamp(50px,8vw,60px) clamp(24px,6vw,40px) clamp(40px,7vw,50px);text-align:center;border:1.5px solid var(--rose-light);position:relative;overflow:visible}
 
-  .envelope {
-    width: 380px;
-    max-width: 90vw;
-    position: relative;
-    cursor: pointer;
-    filter: drop-shadow(0 20px 60px rgba(200,131,138,0.3));
-    animation: floatEnv 4s ease-in-out infinite;
-  }
-  @keyframes floatEnv {
-    0%,100% { transform: translateY(0px); }
-    50%      { transform: translateY(-12px); }
-  }
+.env-flap{position:absolute;top:0;left:0;right:0;height:0;border-left:calc(min(380px,90vw)/2) solid transparent;border-right:calc(min(380px,90vw)/2) solid transparent;border-top:clamp(80px,22vw,120px) solid #f0d0d5;border-radius:8px 8px 0 0;z-index:2}
 
-  .env-body {
-    background: linear-gradient(160deg, #fdf6f0 0%, #fce8ec 60%, #f5dde0 100%);
-    border-radius: 8px 8px 18px 18px;
-    padding: 60px 40px 50px;
-    text-align: center;
-    border: 1.5px solid var(--rose-light);
-    position: relative;
-    overflow: visible;
-  }
+.wax-seal{position:absolute;top:clamp(40px,11vw,55px);left:50%;transform:translateX(-50%);z-index:5;width:clamp(52px,14vw,64px);height:clamp(52px,14vw,64px);background:radial-gradient(circle at 38% 38%,#d4504a,#9e2a2a);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#ffd9b0;font-family:'Great Vibes',cursive;font-size:clamp(1rem,3.5vw,1.4rem);box-shadow:0 4px 16px rgba(158,42,42,.4);animation:sealPulse 3s ease-in-out infinite}
+@keyframes sealPulse{0%,100%{box-shadow:0 4px 16px rgba(158,42,42,.4),0 0 0 0 rgba(200,131,138,.4)}50%{box-shadow:0 4px 20px rgba(158,42,42,.5),0 0 0 12px rgba(200,131,138,0)}}
 
-  /* Envelope flap */
-  .env-flap {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 0;
-    border-left: 190px solid transparent;
-    border-right: 190px solid transparent;
-    border-top: 120px solid #f0d0d5;
-    border-radius: 8px 8px 0 0;
-    z-index: 2;
-    filter: drop-shadow(0 4px 8px rgba(200,131,138,0.2));
-  }
-  .env-flap::after {
-    content: '';
-    position: absolute;
-    top: -120px; left: -190px; right: -190px;
-    height: 0;
-    border-left: 190px solid transparent;
-    border-right: 190px solid transparent;
-    border-top: 120px solid rgba(255,255,255,0.15);
-  }
+.env-flower{position:absolute;font-size:clamp(1.4rem,5vw,2rem);pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.1));animation:flowerSway 3s ease-in-out infinite}
+.env-flower.tl{top:-14px;left:-14px;transform:rotate(-30deg);animation-delay:0s;--r:-30deg}
+.env-flower.tr{top:-14px;right:-14px;transform:rotate(30deg);animation-delay:.5s;--r:30deg}
+.env-flower.bl{bottom:-14px;left:-14px;transform:rotate(-150deg);animation-delay:1s;--r:-150deg}
+.env-flower.br{bottom:-14px;right:-14px;transform:rotate(150deg);animation-delay:1.5s;--r:150deg}
+@keyframes flowerSway{0%,100%{transform:rotate(var(--r,0deg)) scale(1)}50%{transform:rotate(calc(var(--r,0deg) + 8deg)) scale(1.08)}}
 
-  /* Wax seal */
-  .wax-seal {
-    position: absolute;
-    top: 55px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 5;
-    width: 64px;
-    height: 64px;
-    background: radial-gradient(circle at 38% 38%, #d4504a, #9e2a2a);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffd9b0;
-    font-family: 'Great Vibes', cursive;
-    font-size: 1.4rem;
-    font-weight: 400;
-    box-shadow: 0 4px 16px rgba(158,42,42,0.4), inset 0 2px 4px rgba(255,255,255,0.2);
-    letter-spacing: 1px;
-    animation: sealPulse 3s ease-in-out infinite;
-  }
-  @keyframes sealPulse {
-    0%,100% { box-shadow: 0 4px 16px rgba(158,42,42,0.4), 0 0 0 0 rgba(200,131,138,0.4); }
-    50%      { box-shadow: 0 4px 20px rgba(158,42,42,0.5), 0 0 0 12px rgba(200,131,138,0); }
-  }
+.env-dear{font-family:'Great Vibes',cursive;font-size:clamp(1.5rem,5vw,2rem);color:var(--rose);margin-bottom:6px;margin-top:clamp(20px,6vw,30px)}
+.env-subtitle{font-size:clamp(.8rem,2.5vw,1rem);color:var(--text-mid);font-style:italic;letter-spacing:2px;margin-bottom:clamp(20px,5vw,30px);font-weight:300}
 
-  /* Corner flowers on envelope */
-  .env-flower {
-    position: absolute;
-    font-size: 2rem;
-    pointer-events: none;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    animation: flowerSway 3s ease-in-out infinite;
-  }
-  .env-flower.tl { top:-18px; left:-18px; transform: rotate(-30deg); animation-delay:0s; }
-  .env-flower.tr { top:-18px; right:-18px; transform: rotate(30deg); animation-delay:0.5s; }
-  .env-flower.bl { bottom:-18px; left:-18px; transform: rotate(-150deg); animation-delay:1s; }
-  .env-flower.br { bottom:-18px; right:-18px; transform: rotate(150deg); animation-delay:1.5s; }
-  @keyframes flowerSway {
-    0%,100% { transform: rotate(var(--r,0deg)) scale(1); }
-    50%      { transform: rotate(calc(var(--r,0deg) + 8deg)) scale(1.08); }
-  }
-  .env-flower.tl { --r: -30deg; }
-  .env-flower.tr { --r: 30deg; }
-  .env-flower.bl { --r: -150deg; }
-  .env-flower.br { --r: 150deg; }
+.env-bottom-left{position:absolute;bottom:0;left:0;right:50%;height:0;border-bottom:clamp(50px,14vw,80px) solid #e8c5ca;border-right:calc(min(380px,90vw)/2) solid transparent}
+.env-bottom-right{position:absolute;bottom:0;left:50%;right:0;height:0;border-bottom:clamp(50px,14vw,80px) solid #e8c5ca;border-left:calc(min(380px,90vw)/2) solid transparent}
 
-  /* Envelope text */
-  .env-dear {
-    font-family: 'Great Vibes', cursive;
-    font-size: 2rem;
-    color: var(--rose);
-    margin-bottom: 8px;
-    margin-top: 30px;
-  }
-  .env-subtitle {
-    font-size: 1rem;
-    color: var(--text-mid);
-    font-style: italic;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-    font-weight: 300;
-  }
+.open-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--rose) 0%,#a86068 100%);color:white;border:none;border-radius:40px;padding:clamp(11px,3vw,14px) clamp(24px,6vw,32px);font-family:'Raleway',sans-serif;font-size:clamp(.8rem,2.5vw,.9rem);font-weight:500;letter-spacing:2px;cursor:pointer;transition:all .3s ease;box-shadow:0 8px 24px rgba(200,131,138,.5);animation:btnPulse 2s ease-in-out infinite;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+@keyframes btnPulse{0%,100%{box-shadow:0 8px 24px rgba(200,131,138,.5),0 0 0 0 rgba(200,131,138,.3)}50%{box-shadow:0 8px 32px rgba(200,131,138,.6),0 0 0 10px rgba(200,131,138,0)}}
+.open-btn:hover{transform:translateY(-2px) scale(1.02)}
+.open-btn:active{transform:scale(.97)}
 
-  /* Open button */
-  .open-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, var(--rose) 0%, #a86068 100%);
-    color: white;
-    border: none;
-    border-radius: 40px;
-    padding: 14px 32px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 24px rgba(200,131,138,0.5);
-    animation: btnPulse 2s ease-in-out infinite;
-  }
-  @keyframes btnPulse {
-    0%,100% { box-shadow: 0 8px 24px rgba(200,131,138,0.5), 0 0 0 0 rgba(200,131,138,0.3); }
-    50%      { box-shadow: 0 8px 32px rgba(200,131,138,0.6), 0 0 0 10px rgba(200,131,138,0); }
-  }
-  .open-btn:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 12px 32px rgba(200,131,138,0.6);
-  }
+#card-wrap{display:none;position:relative;z-index:10;width:100%;justify-content:center;padding:16px 0;opacity:0;pointer-events:none}
+#card-wrap.visible{opacity:1;pointer-events:all;display:flex;animation:cardSpring .9s cubic-bezier(.175,.885,.32,1.275) forwards}
+@keyframes cardSpring{0%{opacity:0;transform:scale(.4) rotate(-4deg)}60%{opacity:1;transform:scale(1.04) rotate(1deg)}80%{transform:scale(.98) rotate(-.5deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
 
-  /* Bottom triangle of envelope */
-  .env-bottom-left {
-    position: absolute; bottom: 0; left: 0; right: 50%;
-    height: 0;
-    border-bottom: 80px solid #e8c5ca;
-    border-right: 190px solid transparent;
-  }
-  .env-bottom-right {
-    position: absolute; bottom: 0; left: 50%; right: 0;
-    height: 0;
-    border-bottom: 80px solid #e8c5ca;
-    border-left: 190px solid transparent;
-  }
+.card{background:linear-gradient(160deg,#fffaf8 0%,#fdf3f5 50%,#f8fdf9 100%);border-radius:4px;width:min(500px,96vw);position:relative;padding:clamp(36px,7vw,60px) clamp(20px,6vw,50px);box-shadow:0 30px 80px rgba(200,131,138,.2),0 4px 20px rgba(0,0,0,.06)}
+.card::before{content:'';position:absolute;inset:clamp(8px,2vw,14px);border:1px solid var(--gold-light);border-radius:2px;pointer-events:none}
+.card::after{content:'';position:absolute;inset:clamp(12px,3vw,18px);border:.5px solid rgba(201,169,110,.3);border-radius:1px;pointer-events:none}
 
-  /* ===== INVITATION CARD ===== */
-  #card-wrap {
-    display: none;
-    position: relative;
-    z-index: 10;
-    animation: cardSpring 0.9s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-  }
-  #card-wrap.visible {
-    opacity: 1;
-    pointer-events: all;
-    animation: cardSpring 0.9s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
-  }
-  @keyframes cardSpring {
-    0%   { opacity:0; transform: scale(0.4) rotate(-4deg); }
-    60%  { opacity:1; transform: scale(1.04) rotate(1deg); }
-    80%  { transform: scale(0.98) rotate(-0.5deg); }
-    100% { opacity:1; transform: scale(1) rotate(0deg); }
-  }
+.corner-bouquet{position:absolute;width:clamp(60px,18vw,110px);height:clamp(60px,18vw,110px);pointer-events:none}
+.corner-bouquet svg{width:100%;height:100%}
+.cb-tl{top:clamp(-6px,-1.5vw,-10px);left:clamp(-6px,-1.5vw,-10px)}
+.cb-tr{top:clamp(-6px,-1.5vw,-10px);right:clamp(-6px,-1.5vw,-10px);transform:scaleX(-1)}
+.cb-bl{bottom:clamp(-6px,-1.5vw,-10px);left:clamp(-6px,-1.5vw,-10px);transform:scaleY(-1)}
+.cb-br{bottom:clamp(-6px,-1.5vw,-10px);right:clamp(-6px,-1.5vw,-10px);transform:scale(-1,-1)}
 
-  .card {
-    background: linear-gradient(160deg, #fffaf8 0%, #fdf3f5 50%, #f8fdf9 100%);
-    border-radius: 4px;
-    width: 500px;
-    max-width: 95vw;
-    position: relative;
-    padding: 60px 50px;
-    box-shadow:
-      0 30px 80px rgba(200,131,138,0.2),
-      0 4px 20px rgba(0,0,0,0.06),
-      inset 0 1px 0 rgba(255,255,255,0.9);
-  }
+.card-inner{text-align:center;position:relative;z-index:2}
 
-  /* Decorative border lines */
-  .card::before {
-    content: '';
-    position: absolute;
-    inset: 14px;
-    border: 1px solid var(--gold-light);
-    border-radius: 2px;
-    pointer-events: none;
-  }
-  .card::after {
-    content: '';
-    position: absolute;
-    inset: 18px;
-    border: 0.5px solid rgba(201,169,110,0.3);
-    border-radius: 1px;
-    pointer-events: none;
-  }
+.dear-text{font-family:'Raleway',sans-serif;font-size:clamp(.65rem,1.8vw,.75rem);letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:6px;opacity:0;animation:fadeUp .6s ease forwards;animation-delay:.4s}
+.card-subtitle{font-size:clamp(.85rem,2.5vw,1rem);color:var(--text-mid);font-style:italic;margin-bottom:clamp(16px,4vw,28px);opacity:0;animation:fadeUp .6s ease forwards;animation-delay:.6s;line-height:1.5}
 
-  /* Corner bouquets */
-  .corner-bouquet {
-    position: absolute;
-    width: 110px;
-    height: 110px;
-    pointer-events: none;
-  }
-  .corner-bouquet svg { width: 100%; height: 100%; }
-  .cb-tl { top:-10px; left:-10px; }
-  .cb-tr { top:-10px; right:-10px; transform: scaleX(-1); }
-  .cb-bl { bottom:-10px; left:-10px; transform: scaleY(-1); }
-  .cb-br { bottom:-10px; right:-10px; transform: scale(-1,-1); }
+.divider{display:flex;align-items:center;gap:12px;justify-content:center;margin:clamp(12px,3vw,20px) 0;opacity:0;animation:fadeUp .6s ease forwards;animation-delay:.7s}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent)}
+.divider span{color:var(--rose-light);font-size:1rem}
 
-  /* Card content */
-  .card-inner {
-    text-align: center;
-    position: relative;
-    z-index: 2;
-  }
+.names{font-family:'Great Vibes',cursive;font-size:clamp(2.6rem,10vw,4rem);color:var(--rose);line-height:1.1;margin:4px 0 clamp(12px,3vw,16px);opacity:0;animation:fadeUp .7s ease forwards;animation-delay:.8s;text-shadow:0 2px 20px rgba(200,131,138,.3)}
 
-  .dear-text {
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 4px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 0.4s;
-  }
+.date-label{font-family:'Raleway',sans-serif;font-size:clamp(.6rem,1.8vw,.7rem);letter-spacing:4px;color:var(--sage);text-transform:uppercase;margin-bottom:6px;opacity:0;animation:fadeUp .6s ease forwards;animation-delay:1s}
+.date-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,3.5vw,1.5rem);color:var(--text-dark);font-weight:300;margin-bottom:clamp(16px,4vw,28px);opacity:0;animation:fadeUp .6s ease forwards;animation-delay:1.1s}
 
-  .card-subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    color: var(--text-mid);
-    font-style: italic;
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 0.6s;
-  }
+.countdown-box{background:linear-gradient(135deg,rgba(248,240,242,.8) 0%,rgba(240,245,241,.8) 100%);border:1px solid var(--rose-pale);border-radius:12px;padding:clamp(14px,4vw,20px) clamp(10px,3vw,16px);margin:clamp(16px,4vw,24px) 0;opacity:0;animation:fadeUp .6s ease forwards;animation-delay:1.2s}
+.countdown-label{font-family:'Raleway',sans-serif;font-size:clamp(.6rem,1.8vw,.65rem);letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:clamp(8px,2vw,12px)}
+.countdown-units{display:flex;justify-content:center;gap:clamp(2px,1.5vw,6px);align-items:center}
+.c-unit{text-align:center;min-width:clamp(36px,11vw,52px)}
+.c-num{font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,6vw,2.4rem);font-weight:600;color:var(--rose);line-height:1;display:block}
+.c-lbl{font-family:'Raleway',sans-serif;font-size:clamp(.5rem,1.5vw,.58rem);letter-spacing:2px;color:var(--text-mid);text-transform:uppercase;margin-top:4px;display:block}
+.c-sep{font-size:clamp(1.4rem,4.5vw,2rem);color:var(--rose-light);font-weight:300;padding-bottom:8px}
 
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    justify-content: center;
-    margin: 20px 0;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 0.7s;
-  }
-  .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
-  }
-  .divider span { color: var(--rose-light); font-size: 1rem; }
+.info-blocks{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,2.5vw,12px);margin:clamp(16px,4vw,24px) 0;opacity:0;animation:fadeUp .6s ease forwards;animation-delay:1.4s}
+.info-block{background:rgba(255,255,255,.7);border:1px solid var(--rose-pale);border-radius:10px;padding:clamp(12px,3.5vw,16px) clamp(8px,2.5vw,12px);text-align:center}
+.info-block .ib-icon{font-size:clamp(1.1rem,3.5vw,1.4rem);margin-bottom:6px;display:block}
+.info-block .ib-title{font-family:'Raleway',sans-serif;font-size:clamp(.55rem,1.6vw,.6rem);letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+.info-block .ib-val{font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,2.8vw,1rem);color:var(--text-dark);font-weight:400}
+.info-block .ib-sub{font-size:clamp(.72rem,2.2vw,.8rem);color:var(--text-mid);font-style:italic;margin-top:2px}
 
-  .names {
-    font-family: 'Great Vibes', cursive;
-    font-size: 4rem;
-    color: var(--rose);
-    line-height: 1.1;
-    margin: 4px 0 16px;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.8s;
-    text-shadow: 0 2px 20px rgba(200,131,138,0.3);
-  }
+.location-block{background:rgba(255,255,255,.7);border:1px solid var(--rose-pale);border-radius:10px;padding:clamp(14px,4vw,18px);text-align:center;opacity:0;animation:fadeUp .6s ease forwards;animation-delay:1.5s}
+.location-block .ib-icon{font-size:clamp(1.2rem,4vw,1.6rem);margin-bottom:6px;display:block}
+.location-block .ib-title{font-family:'Raleway',sans-serif;font-size:clamp(.55rem,1.6vw,.6rem);letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.location-block .ib-val{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,3.2vw,1.15rem);color:var(--text-dark)}
+.location-block .ib-sub{font-size:clamp(.78rem,2.3vw,.85rem);color:var(--text-mid);font-style:italic;margin-top:3px}
 
-  .date-label {
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 4px;
-    color: var(--sage);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 1s;
-  }
+.card-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.88rem,2.6vw,1rem);color:var(--text-mid);line-height:1.7;margin:clamp(16px,4vw,24px) 0 0;opacity:0;animation:fadeUp .6s ease forwards;animation-delay:1.6s}
+.card-quote::before{content:'❝ ';color:var(--rose-light)}
+.card-quote::after{content:' ❞';color:var(--rose-light)}
 
-  .date-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    color: var(--text-dark);
-    font-weight: 300;
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 1.1s;
-  }
+.sparkle{position:absolute;pointer-events:none;animation:sparkleAnim 2.5s ease-in-out infinite;font-size:clamp(.7rem,2vw,.9rem);opacity:.6}
+@keyframes sparkleAnim{0%,100%{opacity:.2;transform:scale(.8) rotate(0)}50%{opacity:.9;transform:scale(1.2) rotate(20deg)}}
+.sparkle.s1{top:clamp(18px,4vw,28px);left:clamp(16px,4vw,30px);animation-delay:0s}
+.sparkle.s2{top:clamp(18px,4vw,28px);right:clamp(16px,4vw,30px);animation-delay:.8s}
+.sparkle.s3{bottom:clamp(18px,4vw,28px);left:clamp(16px,4vw,30px);animation-delay:1.6s}
+.sparkle.s4{bottom:clamp(18px,4vw,28px);right:clamp(16px,4vw,30px);animation-delay:.4s}
 
-  /* Countdown */
-  .countdown-box {
-    background: linear-gradient(135deg, rgba(248,240,242,0.8) 0%, rgba(240,245,241,0.8) 100%);
-    border: 1px solid var(--rose-pale);
-    border-radius: 12px;
-    padding: 20px 16px;
-    margin: 24px 0;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 1.2s;
-  }
-  .countdown-label {
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.65rem;
-    letter-spacing: 3px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .countdown-units {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    align-items: center;
-  }
-  .c-unit {
-    text-align: center;
-    min-width: 52px;
-  }
-  .c-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.4rem;
-    font-weight: 600;
-    color: var(--rose);
-    line-height: 1;
-    display: block;
-  }
-  .c-lbl {
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.58rem;
-    letter-spacing: 2px;
-    color: var(--text-mid);
-    text-transform: uppercase;
-    margin-top: 4px;
-    display: block;
-  }
-  .c-sep {
-    font-size: 2rem;
-    color: var(--rose-light);
-    font-weight: 300;
-    padding-bottom: 8px;
-  }
+@keyframes fadeUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
 
-  /* Info blocks */
-  .info-blocks {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin: 24px 0;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 1.4s;
-  }
-  .info-block {
-    background: rgba(255,255,255,0.7);
-    border: 1px solid var(--rose-pale);
-    border-radius: 10px;
-    padding: 16px 12px;
-    text-align: center;
-  }
-  .info-block .ib-icon { font-size: 1.4rem; margin-bottom: 6px; display: block; }
-  .info-block .ib-title {
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.6rem;
-    letter-spacing: 2px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .info-block .ib-val {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    color: var(--text-dark);
-    font-weight: 400;
-  }
-  .info-block .ib-sub {
-    font-size: 0.8rem;
-    color: var(--text-mid);
-    font-style: italic;
-    margin-top: 2px;
-  }
-
-  /* Location block */
-  .location-block {
-    background: rgba(255,255,255,0.7);
-    border: 1px solid var(--rose-pale);
-    border-radius: 10px;
-    padding: 18px;
-    text-align: center;
-    margin-top: 0;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 1.5s;
-  }
-  .location-block .ib-icon { font-size: 1.6rem; margin-bottom: 6px; display: block; }
-  .location-block .ib-title {
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.6rem;
-    letter-spacing: 2px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .location-block .ib-val {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.15rem;
-    color: var(--text-dark);
-  }
-  .location-block .ib-sub {
-    font-size: 0.85rem;
-    color: var(--text-mid);
-    font-style: italic;
-    margin-top: 3px;
-  }
-
-  /* Quote */
-  .card-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--text-mid);
-    line-height: 1.7;
-    margin: 24px 0 0;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 1.6s;
-  }
-  .card-quote::before { content: '❝ '; color: var(--rose-light); }
-  .card-quote::after  { content: ' ❞'; color: var(--rose-light); }
-
-  /* Sparkle decoration on card */
-  .sparkle {
-    position: absolute;
-    pointer-events: none;
-    animation: sparkleAnim 2.5s ease-in-out infinite;
-    font-size: 0.9rem;
-    opacity: 0.6;
-  }
-  @keyframes sparkleAnim {
-    0%,100% { opacity:0.2; transform: scale(0.8) rotate(0deg); }
-    50%      { opacity:0.9; transform: scale(1.2) rotate(20deg); }
-  }
-  .sparkle.s1 { top:28px; left:30px; animation-delay:0s; }
-  .sparkle.s2 { top:28px; right:30px; animation-delay:0.8s; }
-  .sparkle.s3 { bottom:28px; left:30px; animation-delay:1.6s; }
-  .sparkle.s4 { bottom:28px; right:30px; animation-delay:0.4s; }
-
-  @keyframes fadeUp {
-    0%   { opacity:0; transform: translateY(20px); }
-    100% { opacity:1; transform: translateY(0); }
-  }
-
-  /* Responsive */
-  @media (max-width: 520px) {
-    .card { padding: 50px 28px; }
-    .names { font-size: 3rem; }
-    .info-blocks { grid-template-columns: 1fr 1fr; gap: 8px; }
-    .c-num { font-size: 1.9rem; }
-    .c-unit { min-width: 42px; }
-    .corner-bouquet { width: 80px; height: 80px; }
-  }
+@media(min-width:600px){
+  .envelope{width:380px}
+  .env-flap{border-left-width:190px;border-right-width:190px;border-top-width:120px}
+  .env-bottom-left{border-bottom-width:80px;border-right-width:190px}
+  .env-bottom-right{border-bottom-width:80px;border-left-width:190px}
+}
 </style>
 </head>
 <body>
-
-<!-- Falling petals -->
 <div id="petals-container"></div>
 
-<!-- SCENE -->
 <div id="scene">
-
-  <!-- Envelope -->
   <div id="envelope-wrap">
     <div class="envelope">
-      <!-- Corner flowers -->
       <span class="env-flower tl">🌸</span>
       <span class="env-flower tr">🌸</span>
       <span class="env-flower bl">🌺</span>
       <span class="env-flower br">🌺</span>
-
       <div class="env-body">
         <div class="env-flap"></div>
-        <div class="wax-seal">В&Д</div>
+        <div class="wax-seal">В&amp;Д</div>
         <div class="env-bottom-left"></div>
         <div class="env-bottom-right"></div>
-
         <div class="env-dear">Дорогому Гостю</div>
         <div class="env-subtitle">свадебное приглашение</div>
-
-        <button class="open-btn" onclick="openInvitation()">
-          <span>✉</span> Открыть приглашение
-        </button>
+        <button class="open-btn" onclick="openInvitation()"><span>✉</span> Открыть приглашение</button>
       </div>
     </div>
   </div>
 
-  <!-- Invitation Card (hidden initially) -->
   <div id="card-wrap">
     <div class="card">
-      <!-- Corner bouquets SVG -->
-      <div class="corner-bouquet cb-tl">
-        <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
-          <g opacity="0.9">
-            <!-- Leaves -->
-            <ellipse cx="30" cy="70" rx="12" ry="5" fill="#8a9e8c" transform="rotate(-40 30 70)" opacity="0.7"/>
-            <ellipse cx="20" cy="55" rx="10" ry="4" fill="#a0b89e" transform="rotate(-60 20 55)" opacity="0.7"/>
-            <ellipse cx="50" cy="75" rx="11" ry="4" fill="#8a9e8c" transform="rotate(-20 50 75)" opacity="0.6"/>
-            <!-- Roses -->
-            <circle cx="45" cy="50" r="14" fill="#e8b4b8" opacity="0.4"/>
-            <circle cx="45" cy="50" r="10" fill="#d4868e"/>
-            <circle cx="45" cy="50" r="6" fill="#c8737c"/>
-            <circle cx="45" cy="50" r="3" fill="#b85a64"/>
-            <circle cx="28" cy="62" r="11" fill="#f0cdd0" opacity="0.5"/>
-            <circle cx="28" cy="62" r="8" fill="#e0a0a6"/>
-            <circle cx="28" cy="62" r="4.5" fill="#d08088"/>
-            <circle cx="28" cy="62" r="2" fill="#c06870"/>
-            <!-- Small flowers -->
-            <circle cx="58" cy="38" r="6" fill="#f5e0c8"/>
-            <circle cx="58" cy="38" r="3" fill="#e8c89e"/>
-            <circle cx="20" cy="40" r="5" fill="#f0d5e0"/>
-            <circle cx="20" cy="40" r="2.5" fill="#e0b0c0"/>
-          </g>
-        </svg>
-      </div>
-      <div class="corner-bouquet cb-tr">
-        <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
-          <g opacity="0.9">
-            <ellipse cx="30" cy="70" rx="12" ry="5" fill="#8a9e8c" transform="rotate(-40 30 70)" opacity="0.7"/>
-            <ellipse cx="20" cy="55" rx="10" ry="4" fill="#a0b89e" transform="rotate(-60 20 55)" opacity="0.7"/>
-            <ellipse cx="50" cy="75" rx="11" ry="4" fill="#8a9e8c" transform="rotate(-20 50 75)" opacity="0.6"/>
-            <circle cx="45" cy="50" r="14" fill="#e8b4b8" opacity="0.4"/>
-            <circle cx="45" cy="50" r="10" fill="#d4868e"/>
-            <circle cx="45" cy="50" r="6" fill="#c8737c"/>
-            <circle cx="45" cy="50" r="3" fill="#b85a64"/>
-            <circle cx="28" cy="62" r="11" fill="#f0cdd0" opacity="0.5"/>
-            <circle cx="28" cy="62" r="8" fill="#e0a0a6"/>
-            <circle cx="28" cy="62" r="4.5" fill="#d08088"/>
-            <circle cx="28" cy="62" r="2" fill="#c06870"/>
-            <circle cx="58" cy="38" r="6" fill="#f5e0c8"/>
-            <circle cx="58" cy="38" r="3" fill="#e8c89e"/>
-            <circle cx="20" cy="40" r="5" fill="#f0d5e0"/>
-            <circle cx="20" cy="40" r="2.5" fill="#e0b0c0"/>
-          </g>
-        </svg>
-      </div>
-      <div class="corner-bouquet cb-bl">
-        <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
-          <g opacity="0.9">
-            <ellipse cx="30" cy="70" rx="12" ry="5" fill="#8a9e8c" transform="rotate(-40 30 70)" opacity="0.7"/>
-            <ellipse cx="20" cy="55" rx="10" ry="4" fill="#a0b89e" transform="rotate(-60 20 55)" opacity="0.7"/>
-            <ellipse cx="50" cy="75" rx="11" ry="4" fill="#8a9e8c" transform="rotate(-20 50 75)" opacity="0.6"/>
-            <circle cx="45" cy="50" r="14" fill="#e8b4b8" opacity="0.4"/>
-            <circle cx="45" cy="50" r="10" fill="#d4868e"/>
-            <circle cx="45" cy="50" r="6" fill="#c8737c"/>
-            <circle cx="45" cy="50" r="3" fill="#b85a64"/>
-            <circle cx="28" cy="62" r="11" fill="#f0cdd0" opacity="0.5"/>
-            <circle cx="28" cy="62" r="8" fill="#e0a0a6"/>
-            <circle cx="28" cy="62" r="4.5" fill="#d08088"/>
-            <circle cx="28" cy="62" r="2" fill="#c06870"/>
-            <circle cx="58" cy="38" r="6" fill="#f5e0c8"/>
-            <circle cx="58" cy="38" r="3" fill="#e8c89e"/>
-            <circle cx="20" cy="40" r="5" fill="#f0d5e0"/>
-            <circle cx="20" cy="40" r="2.5" fill="#e0b0c0"/>
-          </g>
-        </svg>
-      </div>
-      <div class="corner-bouquet cb-br">
-        <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
-          <g opacity="0.9">
-            <ellipse cx="30" cy="70" rx="12" ry="5" fill="#8a9e8c" transform="rotate(-40 30 70)" opacity="0.7"/>
-            <ellipse cx="20" cy="55" rx="10" ry="4" fill="#a0b89e" transform="rotate(-60 20 55)" opacity="0.7"/>
-            <ellipse cx="50" cy="75" rx="11" ry="4" fill="#8a9e8c" transform="rotate(-20 50 75)" opacity="0.6"/>
-            <circle cx="45" cy="50" r="14" fill="#e8b4b8" opacity="0.4"/>
-            <circle cx="45" cy="50" r="10" fill="#d4868e"/>
-            <circle cx="45" cy="50" r="6" fill="#c8737c"/>
-            <circle cx="45" cy="50" r="3" fill="#b85a64"/>
-            <circle cx="28" cy="62" r="11" fill="#f0cdd0" opacity="0.5"/>
-            <circle cx="28" cy="62" r="8" fill="#e0a0a6"/>
-            <circle cx="28" cy="62" r="4.5" fill="#d08088"/>
-            <circle cx="28" cy="62" r="2" fill="#c06870"/>
-            <circle cx="58" cy="38" r="6" fill="#f5e0c8"/>
-            <circle cx="58" cy="38" r="3" fill="#e8c89e"/>
-            <circle cx="20" cy="40" r="5" fill="#f0d5e0"/>
-            <circle cx="20" cy="40" r="2.5" fill="#e0b0c0"/>
-          </g>
-        </svg>
-      </div>
+      <div class="corner-bouquet cb-tl"><svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg"><g opacity=".9"><ellipse cx="30" cy="70" rx="12" ry="5" fill="#8a9e8c" transform="rotate(-40 30 70)" opacity=".7"/><ellipse cx="20" cy="55" rx="10" ry="4" fill="#a0b89e" transform="rotate(-60 20 55)" opacity=".7"/><ellipse cx="50" cy="75" rx="11" ry="4" fill="#8a9e8c" transform="rotate(-20 50 75)" opacity=".6"/><circle cx="45" cy="50" r="14" fill="#e8b4b8" opacity=".4"/><circle cx="45" cy="50" r="10" fill="#d4868e"/><circle cx="45" cy="50" r="6" fill="#c8737c"/><circle cx="45" cy="50" r="3" fill="#b85a64"/><circle cx="28" cy="62" r="11" fill="#f0cdd0" opacity=".5"/><circle cx="28" cy="62" r="8" fill="#e0a0a6"/><circle cx="28" cy="62" r="4.5" fill="#d08088"/><circle cx="28" cy="62" r="2" fill="#c06870"/><circle cx="58" cy="38" r="6" fill="#f5e0c8"/><circle cx="58" cy="38" r="3" fill="#e8c89e"/><circle cx="20" cy="40" r="5" fill="#f0d5e0"/><circle cx="20" cy="40" r="2.5" fill="#e0b0c0"/></g></svg></div>
+      <div class="corner-bouquet cb-tr"><svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg"><g opacity=".9"><ellipse cx="30" cy="70" rx="12" ry="5" fill="#8a9e8c" transform="rotate(-40 30 70)" opacity=".7"/><ellipse cx="20" cy="55" rx="10" ry="4" fill="#a0b89e" transform="rotate(-60 20 55)" opacity=".7"/><ellipse cx="50" cy="75" rx="11" ry="4" fill="#8a9e8c" transform="rotate(-20 50 75)" opacity=".6"/><circle cx="45" cy="50" r="14" fill="#e8b4b8" opacity=".4"/><circle cx="45" cy="50" r="10" fill="#d4868e"/><circle cx="45" cy="50" r="6" fill="#c8737c"/><circle cx="45" cy="50" r="3" fill="#b85a64"/><circle cx="28" cy="62" r="11" fill="#f0cdd0" opacity=".5"/><circle cx="28" cy="62" r="8" fill="#e0a0a6"/><circle cx="28" cy="62" r="4.5" fill="#d08088"/><circle cx="28" cy="62" r="2" fill="#c06870"/><circle cx="58" cy="38" r="6" fill="#f5e0c8"/><circle cx="58" cy="38" r="3" fill="#e8c89e"/><circle cx="20" cy="40" r="5" fill="#f0d5e0"/><circle cx="20" cy="40" r="2.5" fill="#e0b0c0"/></g></svg></div>
+      <div class="corner-bouquet cb-bl"><svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg"><g opacity=".9"><ellipse cx="30" cy="70" rx="12" ry="5" fill="#8a9e8c" transform="rotate(-40 30 70)" opacity=".7"/><ellipse cx="20" cy="55" rx="10" ry="4" fill="#a0b89e" transform="rotate(-60 20 55)" opacity=".7"/><ellipse cx="50" cy="75" rx="11" ry="4" fill="#8a9e8c" transform="rotate(-20 50 75)" opacity=".6"/><circle cx="45" cy="50" r="14" fill="#e8b4b8" opacity=".4"/><circle cx="45" cy="50" r="10" fill="#d4868e"/><circle cx="45" cy="50" r="6" fill="#c8737c"/><circle cx="45" cy="50" r="3" fill="#b85a64"/><circle cx="28" cy="62" r="11" fill="#f0cdd0" opacity=".5"/><circle cx="28" cy="62" r="8" fill="#e0a0a6"/><circle cx="28" cy="62" r="4.5" fill="#d08088"/><circle cx="28" cy="62" r="2" fill="#c06870"/><circle cx="58" cy="38" r="6" fill="#f5e0c8"/><circle cx="58" cy="38" r="3" fill="#e8c89e"/><circle cx="20" cy="40" r="5" fill="#f0d5e0"/><circle cx="20" cy="40" r="2.5" fill="#e0b0c0"/></g></svg></div>
+      <div class="corner-bouquet cb-br"><svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg"><g opacity=".9"><ellipse cx="30" cy="70" rx="12" ry="5" fill="#8a9e8c" transform="rotate(-40 30 70)" opacity=".7"/><ellipse cx="20" cy="55" rx="10" ry="4" fill="#a0b89e" transform="rotate(-60 20 55)" opacity=".7"/><ellipse cx="50" cy="75" rx="11" ry="4" fill="#8a9e8c" transform="rotate(-20 50 75)" opacity=".6"/><circle cx="45" cy="50" r="14" fill="#e8b4b8" opacity=".4"/><circle cx="45" cy="50" r="10" fill="#d4868e"/><circle cx="45" cy="50" r="6" fill="#c8737c"/><circle cx="45" cy="50" r="3" fill="#b85a64"/><circle cx="28" cy="62" r="11" fill="#f0cdd0" opacity=".5"/><circle cx="28" cy="62" r="8" fill="#e0a0a6"/><circle cx="28" cy="62" r="4.5" fill="#d08088"/><circle cx="28" cy="62" r="2" fill="#c06870"/><circle cx="58" cy="38" r="6" fill="#f5e0c8"/><circle cx="58" cy="38" r="3" fill="#e8c89e"/><circle cx="20" cy="40" r="5" fill="#f0d5e0"/><circle cx="20" cy="40" r="2.5" fill="#e0b0c0"/></g></svg></div>
 
-      <!-- Sparkles -->
       <span class="sparkle s1">✦</span>
       <span class="sparkle s2">✦</span>
       <span class="sparkle s3">✧</span>
@@ -681,15 +155,10 @@
       <div class="card-inner">
         <div class="dear-text">Дорогой Гость</div>
         <div class="card-subtitle">Мы с радостью приглашаем Вас разделить с нами этот особенный день</div>
-
         <div class="divider"><span>❧</span></div>
-
-        <div class="names">Влад & Диана</div>
-
+        <div class="names">Влад &amp; Диана</div>
         <div class="date-label">Дата бракосочетания</div>
         <div class="date-text">Среда, 20 сентября 2027</div>
-
-        <!-- Countdown -->
         <div class="countdown-box">
           <div class="countdown-label">До торжества осталось</div>
           <div class="countdown-units">
@@ -702,102 +171,67 @@
             <div class="c-unit"><span class="c-num" id="cd-secs">--</span><span class="c-lbl">Секунд</span></div>
           </div>
         </div>
-
-        <!-- Info blocks -->
         <div class="info-blocks">
-          <div class="info-block">
-            <span class="ib-icon">💍</span>
-            <div class="ib-title">Никах</div>
-            <div class="ib-val">13:00</div>
-            <div class="ib-sub">Торжественная церемония</div>
-          </div>
-          <div class="info-block">
-            <span class="ib-icon">🥂</span>
-            <div class="ib-title">Банкет</div>
-            <div class="ib-val">16:00</div>
-            <div class="ib-sub">Праздничный вечер</div>
-          </div>
+          <div class="info-block"><span class="ib-icon">💍</span><div class="ib-title">Никах</div><div class="ib-val">13:00</div><div class="ib-sub">Торжественная церемония</div></div>
+          <div class="info-block"><span class="ib-icon">🥂</span><div class="ib-title">Банкет</div><div class="ib-val">16:00</div><div class="ib-sub">Праздничный вечер</div></div>
         </div>
-
-        <!-- Location -->
-        <div class="location-block">
-          <span class="ib-icon">📍</span>
-          <div class="ib-title">Место проведения</div>
-          <div class="ib-val">Зал «Жемчужина»</div>
-          <div class="ib-sub">Ташкент, Узбекистан</div>
-        </div>
-
-        <div class="divider" style="margin-top:24px; animation-delay:1.7s;"><span>❧</span></div>
-
+        <div class="location-block"><span class="ib-icon">📍</span><div class="ib-title">Место проведения</div><div class="ib-val">Зал «Жемчужина»</div><div class="ib-sub">Ташкент, Узбекистан</div></div>
+        <div class="divider" style="margin-top:clamp(16px,4vw,24px);animation-delay:1.7s"><span>❧</span></div>
         <div class="card-quote">Ваше присутствие — лучший подарок для нас</div>
       </div>
     </div>
   </div>
-
 </div>
 
 <script>
-  // Petals
-  const petalEmojis = ['🌸','🌺','🌷','🏵️'];
-  const container = document.getElementById('petals-container');
-  function spawnPetal() {
-    const p = document.createElement('div');
-    p.className = 'petal';
-    p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
-    p.style.left = Math.random()*100 + 'vw';
-    p.style.fontSize = (16+Math.random()*16) + 'px';
-    const dur = 7 + Math.random()*8;
-    p.style.animationDuration = dur + 's';
-    p.style.animationDelay = (Math.random()*4) + 's';
-    container.appendChild(p);
-    setTimeout(() => p.remove(), (dur+4)*1000);
-  }
-  for(let i=0;i<14;i++) {
-    setTimeout(spawnPetal, i*600);
-  }
-  setInterval(spawnPetal, 1200);
+const petalEmojis=['🌸','🌺','🌷','🏵️'];
+const container=document.getElementById('petals-container');
+function spawnPetal(){
+  const p=document.createElement('div');
+  p.className='petal';
+  p.textContent=petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
+  p.style.left=Math.random()*100+'vw';
+  p.style.fontSize=(14+Math.random()*14)+'px';
+  const dur=7+Math.random()*8;
+  p.style.animationDuration=dur+'s';
+  p.style.animationDelay=(Math.random()*4)+'s';
+  container.appendChild(p);
+  setTimeout(()=>p.remove(),(dur+4)*1000);
+}
+for(let i=0;i<12;i++)setTimeout(spawnPetal,i*600);
+setInterval(spawnPetal,1200);
 
-  // Open invitation
-  function openInvitation() {
-    const envWrap = document.getElementById('envelope-wrap');
-    const cardWrap = document.getElementById('card-wrap');
+function openInvitation(){
+  const envWrap=document.getElementById('envelope-wrap');
+  const cardWrap=document.getElementById('card-wrap');
+  envWrap.classList.add('fly-up');
+  setTimeout(()=>{
+    envWrap.style.display='none';
+    cardWrap.classList.add('visible');
+    startCountdown();
+  },900);
+}
 
-    envWrap.classList.add('fly-up');
-
-    setTimeout(() => {
-      envWrap.style.display = 'none';
-      cardWrap.style.opacity = '1';
-      cardWrap.style.pointerEvents = 'all';
-      cardWrap.classList.add('visible');
-      startCountdown();
-    }, 900);
-  }
-
-  // Countdown
-  function startCountdown() {
-    function update() {
-      const target = new Date('2027-09-20T13:00:00').getTime();
-      const now = Date.now();
-      const diff = target - now;
-      if (diff <= 0) {
-        document.getElementById('cd-days').textContent = '00';
-        document.getElementById('cd-hours').textContent = '00';
-        document.getElementById('cd-mins').textContent = '00';
-        document.getElementById('cd-secs').textContent = '00';
-        return;
-      }
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
-      document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
-      document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
-      document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
-      document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+function startCountdown(){
+  function update(){
+    const target=new Date('2027-09-20T13:00:00').getTime();
+    const diff=target-Date.now();
+    if(diff<=0){
+      ['days','hours','mins','secs'].forEach(k=>document.getElementById('cd-'+k).textContent='00');
+      return;
     }
-    update();
-    setInterval(update, 1000);
+    const d=Math.floor(diff/86400000);
+    const h=Math.floor((diff%86400000)/3600000);
+    const m=Math.floor((diff%3600000)/60000);
+    const s=Math.floor((diff%60000)/1000);
+    document.getElementById('cd-days').textContent=String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent=String(s).padStart(2,'0');
   }
+  update();
+  setInterval(update,1000);
+}
 </script>
 </body>
 </html>
